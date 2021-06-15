@@ -8,8 +8,7 @@
 	angulo dword 0.5;rad;28.6
 	variable_Y REAL4 0.0
 	variableY dword 0
-	;borrar dword 0.912
-	valores_acos qword -0.69813170079773212,0.87266462599716477,1.5707963267948966
+	bytes_relleno dword 0
 	.code
 	;int suma(int a,int b)
 	Imagen proc C, a:dword, b:dword, d:dword
@@ -43,13 +42,14 @@
 	inc edi
 	loop bucleB;fin de bucle de 3
 
-	mov ecx,[d]
-	sub ecx,12
-
-	;lea eax,d
-	;pop eax
-	;call bitsExtras
-
+	mov edx,0
+	mov eax,[d]
+	sub eax,12
+	mov ecx,3
+	div ecx
+	mov ecx,eax
+	mov bytes_relleno,eax
+	mov eax,0
 	bucleC: ;bucle de N
 
 	mov al,[esi]
@@ -98,23 +98,28 @@
 	end_if:
 	inc edi
 	loop bucleC ;fin bucle
+
+	mov edx,0
+	mov ecx,4
+	mov eax,bytes_relleno
+	div ecx
+	sub ecx,edx
+
+	cmp ecx,4
+	je elsef
+	bitsRelleno:
+	mov eax,01h
+	mov [edi],al
+	inc edi
+	loop bitsRelleno
+	elsef:
+	mov eax,0
+	mov [edi],al
 	pop ecx
 	pop edi
 	pop esi
 	ret 
 	Imagen endp
-
-	bitsExtras proc C, v:dword
-	push eax
-	push ebx
-
-	mov eax,4
-	mov ebx,[v]
-
-	pop ebx
-	pop eax
-	ret
-	bitsExtras endp
 
 	calcular_y proc C, v:dword, v2:dword
 	push esi
@@ -160,18 +165,4 @@
 	pop esi
 	ret
 	magnitudd endp
-
-	;arccos proc C   ;,a:qword
-	;fld qword ptr [variable_Y]
-	;fmul qword ptr [variable_Y]
-  	;fmul qword ptr [valores_acos]
-	;fsub qword ptr [valores_acos+8]
-	;fmul qword ptr [variable_Y]
-	;fld qword ptr [valores_acos+16]
-	;fadd
-	;ret
-	;arccos endp
-
-
-
 end
