@@ -16,15 +16,9 @@ int main()
     char img[]="       ÅÖàÅÖàÇÕàÇÕàÇÕàÇÕàÇÕàÇÕàÊÖâ";
     char cadRetorno[] = "";
     int tam = strlen(img);
-    cout << tam;
-    cout << "\n";
     cout << img;
     Imagen(img, cadRetorno, tam);
-    tam = strlen(cadRetorno);
-    cout << "\n";
-    cout << tam;
-    cout << "\n";
+    cout << "\n\n";
     cout << cadRetorno;
     return 0;
-
 }
