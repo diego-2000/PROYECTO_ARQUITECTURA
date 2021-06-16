@@ -10,7 +10,7 @@
 	variableY dword 0
 	bytes_relleno dword 0
 	.code
-	;int suma(int a,int b)
+	
 	Imagen proc C, a:dword, b:dword, d:dword
 	push esi
 	push edi
@@ -66,12 +66,9 @@
 	lea eax,vector
 	push eax
 	call magnitudd
+	add esp,4
 	fdiv
 	fstp [variable_Y]
-
-	;mov eax,variable_Y
-	;push eax
-	;call arccos
 
 	fld dword ptr [angulo]
 	fcos 
@@ -87,7 +84,7 @@
 	lea eax,vector
 	push eax
 	call calcular_y
-	;add esp,4
+	add esp,8
 	fistp [variableY]
 	mov eax,[variableY]
 	mov [edi],al
@@ -108,7 +105,7 @@
 	cmp ecx,4
 	je elsef
 	bitsRelleno:
-	mov eax,01h
+	mov eax,00h
 	mov [edi],al
 	inc edi
 	loop bitsRelleno
